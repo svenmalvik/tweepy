@@ -7,4 +7,4 @@ docker run -it --rm --name follow \
   -e access_token_secret=<YOUR_VALUE> \
   -e timeout=2 \
   -e keyword=#devops \
-  svenmalvik/tweepy python follow.py
+  tweepy python follow.py
