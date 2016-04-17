@@ -7,6 +7,7 @@ api_secret = os.environ['api_secret']
 access_token = os.environ['access_token']
 access_token_secret = os.environ['access_token_secret']
 timeout = os.environ['timeout']
+max_friends_to_destroy = os.environ['max_friends_to_destroy']
 
 auth = tweepy.OAuthHandler(api_key, api_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -29,8 +30,13 @@ my_followers()
 unfollow_friends = list(set(friends) - set(followers))
 
 def unfollow():
-	for userid in unfollow_friends:
-		api.destroy_friendship(id=userid)
-		time.sleep(timeout)
+  i = 0
+  for userid in unfollow_friends:
+    api.destroy_friendship(id=userid)
+    print("iUnfollow user: " + str(userid))
+    i = i + 1
+    if i == int(max_friends_to_destroy):
+      break
+    time.sleep(int(timeout))
 
 unfollow()
