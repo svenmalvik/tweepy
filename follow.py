@@ -24,14 +24,15 @@ def follow():
   for tweet in tweepy.Cursor(api.search, q=keyword, result_type="recent").items():
     user = tweet.user
     if user.id not in people:
-      api.create_friendship(id=user.id)
-      added_people.append([user.id])
-      print("NAME: " + user.name + " DESC: " + user.description)
+			if user.id not in added_people:
+				api.create_friendship(id=user.id)
+      	added_people.append([user.id])
+      	print("NAME: " + user.name + " DESC: " + user.description)
     
-      i = i + 1
-      if i == int(max_new_friends):
-        break
-      time.sleep(int(timeout))
+      	i = i + 1
+      	if i == int(max_new_friends):
+        	break
+      	time.sleep(int(timeout))
 
 def my_friends():
   for page in tweepy.Cursor(api.friends_ids).pages():
